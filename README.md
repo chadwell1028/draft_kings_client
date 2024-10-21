@@ -35,6 +35,9 @@ from client import DraftKingsOddsClient
 
 client = DraftKingsOddsClient()
 football_odds = client.get_football_markets()
+
+# for continuous harvesting, use the appropriate wrapper method
+client.continuous_harvest(client.get_football_markets)
 ```
 
 ```

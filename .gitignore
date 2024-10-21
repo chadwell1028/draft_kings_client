@@ -145,4 +145,4 @@ Desktop.ini
 *.sqlite
 
 # Odds dump files
-odds_dump*.csv
+odds*.csv
