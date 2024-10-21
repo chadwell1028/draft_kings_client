@@ -1,5 +1,5 @@
 class OddsModel:
-    def __init__(self, sportsbook, sport, league_info, game_date, game_time, game_participants, market, bet_selection_name, price, time_retrieved, suspended):
+    def __init__(self, sportsbook, sport, league_info, game_date, game_time, game_participants, market, bet_selection_name, price, time_retrieved, suspended, line):
         self._sportsbook = sportsbook
         self._sport = sport
         self._league_info = league_info
@@ -11,6 +11,7 @@ class OddsModel:
         self._price = price
         self._time_retrieved = time_retrieved
         self._suspended = suspended
+        self._line = line
 
     @property
     def sportsbook(self):
@@ -56,6 +57,10 @@ class OddsModel:
     def suspended(self):
         return self._suspended
 
+    @property
+    def line(self):
+        return self._line
+
     def to_dict(self):
         return {
             'sportsbook': self.sportsbook,
@@ -68,7 +73,8 @@ class OddsModel:
             'bet_selection_name': self.bet_selection_name,
             'price': self.price,
             'time_retrieved': self.time_retrieved,
-            'suspended': self.suspended
+            'suspended': self.suspended,
+            'line': self.line
         }
 
     @staticmethod
@@ -76,5 +82,5 @@ class OddsModel:
         return [
             'sportsbook', 'sport', 'league_info', 'game_date', 'game_time',
             'game_participants', 'market', 'bet_selection_name', 'price',
-            'time_retrieved', 'suspended'
+            'time_retrieved', 'suspended', 'line'
         ]

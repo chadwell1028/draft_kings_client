@@ -37,7 +37,7 @@ class Authenticator:
 
         for attempt in range(retries):
             try:
-                logging.info(f"Attempt {attempt + 1}: Requesting JWT token from {self._auth_endpoint}")
+                logging.info(f'Attempt {attempt + 1}: Requesting JWT token from {self._auth_endpoint}')
                 response = requests.get(self._auth_endpoint, timeout=10)
 
                 if response.status_code == 200:
@@ -46,34 +46,34 @@ class Authenticator:
                     if token_match:
                         jwt_token = token_match.group(1)
                         self._jwt_token = jwt_token
-                        logging.info(f"JWT Token successfully retrieved: {jwt_token}")
+                        logging.info(f'JWT Token successfully retrieved: {jwt_token}')
                         return jwt_token
                     else:
-                        logging.error("Token not found in response")
+                        logging.error('Token not found in response')
                 else:
-                    logging.error(f"Failed to retrieve token, status code: {response.status_code}")
-                    logging.error(f"Response content: {response.text}")
+                    logging.error(f'Failed to retrieve token, status code: {response.status_code}')
+                    logging.error(f'Response content: {response.text}')
 
             except Timeout:
-                logging.error("The request timed out while trying to reach the authentication endpoint.")
+                logging.error('The request timed out while trying to reach the authentication endpoint.')
 
             except RequestException as e:
-                logging.error(f"An error occurred while making the request: {e}")
+                logging.error(f'An error occurred while making the request: {e}')
 
             except Exception as e:
-                logging.error(f"An unexpected error occurred: {e}")
+                logging.error(f'An unexpected error occurred: {e}')
 
             if attempt < retries - 1:
-                logging.info(f"Retrying in {retry_delay} seconds...")
+                logging.info(f'Retrying in {retry_delay} seconds...')
                 time.sleep(retry_delay)
                 retry_delay *= 2  # double delay after each retry
 
-        logging.error(f"Failed to retrieve JWT token after {retries} attempts.")
+        logging.error(f'Failed to retrieve JWT token after {retries} attempts.')
         return jwt_token
 
     def _generate_headers(self):
         if not self.jwt_token:
-            logging.error("Cannot generate headers without a valid JWT token.")
+            logging.error('Cannot generate headers without a valid JWT token.')
             return None
 
         headers = {
@@ -88,6 +88,6 @@ class Authenticator:
         }
 
         self._headers = headers
-        logging.info("Headers successfully generated.")
+        logging.info('Headers successfully generated.')
 
         return headers
